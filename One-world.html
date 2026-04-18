@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>ONE WORLD — Tabellone</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+–gold:    #fbbf24;
+–muted:   #64748b;
+–text:    #e2e8f0;
+–red:     #ef4444;
+–green:   #22c55e;
+–cibo:    #4ade80;
+–materie: #fb923c;
+–energie: #facc15;
+–salute:  #f87171;
+–sapere:  #60a5fa;
+–beni:    #c084fc;
+
+```
+/* --vh viene impostato via JS alla vera altezza della viewport */
+--vh: 1vh;
+--vw: 1vw;
+```
+
+}
+
+html, body {
+width: 100%;
+height: calc(var(–vh) * 100);
+overflow: hidden;
+background: #0a0e1a;
+}
+
+body {
+color: var(–text);
+font-family: ‘Share Tech Mono’, monospace;
+background:
+radial-gradient(ellipse at 20% 50%, #0d1f3c 0%, #0a0e1a 65%),
+radial-gradient(ellipse at 80% 20%, #1a0d2e 0%, #0a0e1a 55%),
+#0a0e1a;
+display: grid;
+grid-template-rows: auto 1fr 1fr auto;
+/* Padding proporzionale alla viewport reale */
+padding: calc(var(–vh)*1) calc(var(–vw)*1.2);
+gap: calc(var(–vh)*0.8);
+}
+
+/* ── HEADER ── */
+header { text-align: center; line-height: 1; }
+.sub {
+font-size: calc(var(–vh)*1.2);
+letter-spacing: calc(var(–vw)*0.5);
+color: var(–muted); text-transform: uppercase;
+}
+h1 {
+font-family: ‘Cinzel’, serif;
+font-size: calc(var(–vh)*3.5);
+font-weight: 900;
+letter-spacing: calc(var(–vw)*0.6);
+background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+-webkit-background-clip: text; -webkit-text-fill-color: transparent;
+text-transform: uppercase; line-height: 1.15;
+}
+.divider {
+width: calc(var(–vw)*10); height: 1px;
+background: linear-gradient(90deg, transparent, var(–gold), transparent);
+margin: calc(var(–vh)*0.3) auto 0;
+}
+
+/* ── RIGHE CORPORAZIONI ── */
+.corp-row {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: calc(var(–vw)*0.8);
+min-height: 0;
+}
+
+.corp-panel {
+background: rgba(255,255,255,0.035);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: calc(var(–vh)*1.2);
+padding: calc(var(–vh)*1) calc(var(–vw)*1.2);
+position: relative; overflow: hidden;
+display: flex; flex-direction: column;
+gap: calc(var(–vh)*0.3);
+}
+
+.corp-bg-num {
+position: absolute; top: -0.05em; right: 0.1em;
+font-family: ‘Cinzel’, serif;
+font-size: calc(var(–vh)*8); font-weight: 900;
+color: rgba(255,255,255,0.04);
+line-height: 1; user-select: none; pointer-events: none;
+}
+
+.corp-title {
+font-size: calc(var(–vh)*1.3);
+letter-spacing: calc(var(–vw)*0.2);
+color: #94a3b8; text-transform: uppercase;
+margin-bottom: calc(var(–vh)*0.2);
+flex-shrink: 0;
+}
+.corp-title span { color: var(–gold); font-weight: 700; }
+
+.voci-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: calc(var(–vh)*0.3) calc(var(–vw)*0.8);
+flex: 1; min-height: 0;
+align-content: space-evenly;
+}
+
+.voce-row {
+display: flex; align-items: center;
+gap: calc(var(–vw)*0.4);
+}
+
+.voce-icon {
+font-size: calc(var(–vh)*1.6);
+width: calc(var(–vw)*2.2);
+text-align: center; flex-shrink: 0;
+}
+
+.voce-label {
+font-size: calc(var(–vh)*1.3);
+text-transform: uppercase;
+flex: 1; min-width: 0; white-space: nowrap; overflow: hidden;
+}
+
+.voce-val {
+font-size: calc(var(–vh)*2.2); font-weight: 700;
+width: calc(var(–vw)*3);
+text-align: center; color: #f1f5f9; flex-shrink: 0;
+}
+
+/* Bottoni piccoli */
+.btn-sm {
+width:  calc(var(–vh)*3.2);
+height: calc(var(–vh)*3.2);
+border-radius: calc(var(–vh)*0.5);
+border: 1px solid;
+font-size: calc(var(–vh)*2.2); font-weight: 700;
+cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+flex-shrink: 0;
+transition: filter 0.15s, transform 0.1s;
+line-height: 1; background: transparent; padding: 0;
+/* Touch target minimo 44px su iOS */
+min-width: 36px; min-height: 36px;
+}
+.btn-sm:active { transform: scale(0.88); filter: brightness(1.4); }
+.btn-minus { color: var(–red);   border-color: rgba(239,68,68,0.45); }
+.btn-plus  { color: var(–green); border-color: rgba(34,197,94,0.45); }
+
+/* ── BARRA INFERIORE ── */
+.bottom-bar {
+display: grid;
+grid-template-columns: 1fr 1fr 1fr;
+gap: calc(var(–vw)*0.8);
+min-height: 0;
+}
+
+.bottom-panel {
+background: rgba(255,255,255,0.035);
+border: 1px solid rgba(255,255,255,0.1);
+border-radius: calc(var(–vh)*1.2);
+padding: calc(var(–vh)*0.8) calc(var(–vw)*1.2);
+display: flex; flex-direction: column;
+align-items: center; justify-content: center;
+gap: calc(var(–vh)*0.6);
+}
+
+.panel-label {
+font-size: calc(var(–vh)*1.2);
+letter-spacing: calc(var(–vw)*0.25);
+text-transform: uppercase; color: var(–muted);
+}
+
+/* Scarti */
+.scarti-row {
+display: flex; align-items: center;
+gap: calc(var(–vw)*2);
+}
+.scarti-val {
+font-family: ‘Cinzel’, serif;
+font-size: calc(var(–vh)*5); font-weight: 900;
+color: var(–gold); line-height: 1;
+}
+.btn-lg {
+width:  calc(var(–vh)*4.5);
+height: calc(var(–vh)*4.5);
+border-radius: calc(var(–vh)*0.7);
+border: 1px solid;
+font-size: calc(var(–vh)*3); font-weight: 700;
+cursor: pointer; background: transparent;
+transition: filter 0.15s, transform 0.1s; line-height: 1;
+min-width: 40px; min-height: 40px;
+}
+.btn-lg:active { transform: scale(0.9); filter: brightness(1.4); }
+.btn-lg.minus { color: var(–red);   border-color: rgba(239,68,68,0.45); }
+.btn-lg.plus  { color: var(–green); border-color: rgba(34,197,94,0.45); }
+
+/* Timer */
+.timer-wrap {
+display: flex; align-items: center;
+gap: calc(var(–vw)*1.5);
+}
+.timer-circle {
+position: relative;
+width:  calc(var(–vh)*9);
+height: calc(var(–vh)*9);
+flex-shrink: 0;
+}
+.timer-circle svg {
+position: absolute; top: 0; left: 0;
+width: 100%; height: 100%;
+transform: rotate(-90deg);
+}
+.timer-txt {
+position: absolute; inset: 0;
+display: flex; align-items: center; justify-content: center;
+font-size: calc(var(–vh)*2.2); font-weight: 700;
+}
+.btn-scambio {
+padding: calc(var(–vh)*1) calc(var(–vw)*1.5);
+border: none; border-radius: calc(var(–vh)*0.8);
+color: #fff;
+font-size: calc(var(–vh)*1.5); font-weight: 700;
+letter-spacing: 1px; cursor: pointer;
+text-transform: uppercase;
+font-family: ‘Share Tech Mono’, monospace;
+transition: filter 0.2s, transform 0.1s;
+white-space: nowrap; line-height: 1.5;
+}
+.btn-scambio:active { transform: scale(0.95); filter: brightness(1.2); }
+
+/* Carte */
+.carte-inner {
+display: flex; align-items: center;
+gap: calc(var(–vw)*1); width: 100%;
+}
+.card-deck {
+width:  calc(var(–vh)*6);
+height: calc(var(–vh)*8.5);
+flex-shrink: 0;
+border: 2px solid rgba(251,191,36,0.45);
+border-radius: calc(var(–vh)*0.8);
+display: flex; align-items: center; justify-content: center;
+font-size: calc(var(–vh)*3.5); cursor: pointer;
+transition: transform 0.2s, box-shadow 0.2s;
+box-shadow: 0 4px 16px rgba(251,191,36,0.12);
+background: linear-gradient(135deg, #1e293b, #0f172a);
+}
+.card-deck:active { transform: scale(0.93); }
+.card-deck.flipping { transform: rotateY(90deg); }
+
+.card-result {
+flex: 1;
+background: rgba(251,191,36,0.07);
+border: 1px solid rgba(251,191,36,0.28);
+border-radius: calc(var(–vh)*0.8);
+padding: calc(var(–vh)*0.7) calc(var(–vw)*0.8);
+text-align: left;
+animation: fadeIn 0.3s ease;
+overflow-y: auto;
+max-height: calc(var(–vh)*12);
+display: none;
+-webkit-overflow-scrolling: touch;
+}
+.card-result.visible { display: block; }
+.card-result::-webkit-scrollbar { width: 3px; }
+.card-result::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 2px; }
+
+.card-emoji  { font-size: calc(var(–vh)*1.8); }
+.card-title  {
+font-size: calc(var(–vh)*1.4); font-weight: 700;
+letter-spacing: 1px; color: var(–gold);
+text-transform: uppercase;
+margin: calc(var(–vh)*0.2) 0 calc(var(–vh)*0.3);
+}
+.card-body { color: #e2e8f0; font-size: calc(var(–vh)*1.3); line-height: 1.5; }
+.hint { font-size: calc(var(–vh)*1.1); color: #475569; letter-spacing: 1px; }
+
+@keyframes fadeIn {
+from { opacity:0; transform: translateY(3px); }
+to   { opacity:1; transform: translateY(0); }
+}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="sub">Sistema di controllo</div>
+  <h1>ONE WORLD</h1>
+  <div class="divider"></div>
+</header>
+
+<div class="corp-row" id="row-top"></div>
+<div class="corp-row" id="row-mid"></div>
+
+<div class="bottom-bar">
+
+  <div class="bottom-panel">
+    <div class="panel-label">🌍 Scarti Globali</div>
+    <div class="scarti-row">
+      <button class="btn-lg minus" onclick="cambiaScarto(-1)">−</button>
+      <span class="scarti-val" id="scarti-val">0</span>
+      <button class="btn-lg plus"  onclick="cambiaScarto(1)">+</button>
+    </div>
+  </div>
+
+  <div class="bottom-panel">
+    <div class="panel-label">⏱ Fase Scambio</div>
+    <div class="timer-wrap">
+      <div class="timer-circle">
+        <svg viewBox="0 0 64 64">
+          <circle cx="32" cy="32" r="27" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="5"/>
+          <circle id="timer-arc" cx="32" cy="32" r="27" fill="none"
+            stroke="#334155" stroke-width="5"
+            stroke-dasharray="169.6" stroke-dashoffset="0"
+            stroke-linecap="round"
+            style="transition:stroke-dashoffset 1s linear,stroke 0.3s"/>
+        </svg>
+        <div class="timer-txt" id="timer-txt" style="color:#94a3b8">3:00</div>
+      </div>
+      <button class="btn-scambio" id="btn-scambio"
+        style="background:linear-gradient(135deg,#1e3a5f,#3b82f6)"
+        onclick="toggleTimer()">🔄 Avvia<br>Scambio</button>
+    </div>
+  </div>
+
+  <div class="bottom-panel">
+    <div class="panel-label">🃏 Carte Evento</div>
+    <div class="carte-inner">
+      <div>
+        <div class="card-deck" id="card-deck" onclick="pescaCarta()">🃏</div>
+        <div class="hint" style="text-align:center;margin-top:4px">tocca</div>
+      </div>
+      <div class="card-result" id="card-result"></div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ── FIX VIEWPORT iOS/iPad ─────────────────────────────────────────
+// Safari non aggiorna vh quando la barra indirizzi appare/scompare.
+// Usiamo la vera altezza della finestra e la impostiamo come variabile CSS.
+function setVh() {
+  const vh = window.innerHeight / 100;
+  const vw = window.innerWidth  / 100;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+  document.documentElement.style.setProperty('--vw', `${vw}px`);
+}
+setVh();
+window.addEventListener('resize', setVh);
+window.addEventListener('orientationchange', () => setTimeout(setVh, 200));
+
+// ── DATI ──────────────────────────────────────────────────────────
+const VOCI   = ['cibo','materie','energie','salute','sapere','beni'];
+const ICONS  = {cibo:'🌾',materie:'⛏️',energie:'⚡',salute:'❤️',sapere:'📚',beni:'💎'};
+const COLORS = {cibo:'#4ade80',materie:'#fb923c',energie:'#facc15',salute:'#f87171',sapere:'#60a5fa',beni:'#c084fc'};
+
+const CARTE = [
+  {id:1,  emoji:'🌊', titolo:'ALLUVIONE',
+   testo:'Le corporazioni con meno di 4 gettoni SALUTE e meno di 4 gettoni CONOSCENZA perdono 1 gettone MATERIE PRIME e 1 gettone CIBO.'},
+  {id:2,  emoji:'🦠', titolo:'PANDEMIA',
+   testo:'Tutte le corporazioni perdono 1 gettone SALUTE.'},
+  {id:3,  emoji:'📈', titolo:'BOOM ECONOMICO',
+   testo:'Le corporazioni con più di 6 gettoni ENERGIA producono il doppio dei BENI in questo turno.'},
+  {id:4,  emoji:'🔬', titolo:'SCOPERTA TECNOLOGICA',
+   testo:'Le corporazioni con più di 4 gettoni CONOSCENZA guadagnano 1 gettone ENERGIA. Le corporazioni con più di 7 gettoni CONOSCENZA guadagnano 1 gettone ENERGIA e 1 gettone SALUTE.'},
+  {id:5,  emoji:'⚔️', titolo:'GUERRA',
+   testo:'Le corporazioni che non hanno almeno 7 gettoni ENERGIA, 7 gettoni SALUTE e 7 gettoni CONOSCENZA perdono 1 gettone per ogni risorsa mancante.'},
+  {id:6,  emoji:'🕊️', titolo:'ACCORDO O.N.U.',
+   testo:'Tutte le corporazioni devono donare almeno 1 gettone ad un\'altra corporazione.'},
+  {id:7,  emoji:'☢️', titolo:'RIFIUTI TOSSICI',
+   testo:'Ogni corporazione con 7 gettoni ENERGIA raddoppia i propri gettoni CIBO per questo turno, ma deve scegliere due altre corporazioni cui viene tolto 1 gettone SALUTE.'},
+  {id:8,  emoji:'🌿', titolo:'ACCORDO SUL CLIMA',
+   testo:'Se ogni corporazione con almeno 6 gettoni ENERGIA, 6 gettoni CIBO e 6 gettoni CONOSCENZA dona 2 gettoni risorsa alle altre, tutti i gettoni SCARTO vengono eliminati.'},
+  {id:9,  emoji:'🎓', titolo:'RETE EDUCATIVA GLOBALE',
+   testo:'Le corporazioni con almeno 5 gettoni CONOSCENZA possono donare 1 gettone CONOSCENZA alle corporazioni che ne hanno di meno, per guadagnare 1 gettone ENERGIA.'},
+  {id:10, emoji:'🌻', titolo:'RACCOLTO ECCEZIONALE',
+   testo:'Tutte le corporazioni con meno di 4 gettoni CIBO guadagnano 1 gettone CIBO. Tutte le corporazioni con meno di 4 gettoni MATERIE PRIME guadagnano 1 gettone MATERIE PRIME.'},
+  {id:11, emoji:'✊', titolo:'IMPEGNO DEI GIOVANI',
+   testo:'Le corporazioni con almeno 6 gettoni CONOSCENZA donano almeno 1 gettone CIBO o 1 gettone SALUTE alle due corporazioni più povere.'},
+  {id:12, emoji:'🌡️', titolo:'CRISI CLIMATICA',
+   testo:'Le corporazioni con meno di 7 gettoni ENERGIA e meno di 7 gettoni CONOSCENZA perdono 1 gettone CIBO e 1 gettone MATERIE PRIME.'},
+];
+
+const stato = {};
+[1,2,3,4,5,6].forEach(n => { stato[n]={}; VOCI.forEach(v => stato[n][v]=0); });
+let scartiGlobali=0, timerActive=false, secondi=180, timerInterval=null;
+let ultimeCarte=[], flipping=false;
+
+function buildCorp(n) {
+  const p = document.createElement('div');
+  p.className = 'corp-panel';
+  p.innerHTML = `<div class="corp-bg-num">${n}</div>
+    <div class="corp-title">Corporazione <span>${n}</span></div>
+    <div class="voci-grid" id="vg-${n}"></div>`;
+  document.getElementById(n<=3?'row-top':'row-mid').appendChild(p);
+  const vg = document.getElementById(`vg-${n}`);
+  VOCI.forEach(v => {
+    const r = document.createElement('div');
+    r.className = 'voce-row';
+    r.innerHTML = `
+      <span class="voce-icon">${ICONS[v]}</span>
+      <span class="voce-label" style="color:${COLORS[v]}">${v}</span>
+      <button class="btn-sm btn-minus" onclick="cambia(${n},'${v}',-1)">−</button>
+      <span class="voce-val" id="val-${n}-${v}">0</span>
+      <button class="btn-sm btn-plus"  onclick="cambia(${n},'${v}',1)">+</button>`;
+    vg.appendChild(r);
+  });
+}
+[1,2,3,4,5,6].forEach(buildCorp);
+
+function cambia(corp,voce,delta){
+  stato[corp][voce]=Math.max(0,stato[corp][voce]+delta);
+  document.getElementById(`val-${corp}-${voce}`).textContent=stato[corp][voce];
+}
+function cambiaScarto(delta){
+  scartiGlobali=Math.max(0,scartiGlobali+delta);
+  document.getElementById('scarti-val').textContent=scartiGlobali;
+}
+
+function toggleTimer(){
+  const btn=document.getElementById('btn-scambio');
+  if(timerActive){
+    clearInterval(timerInterval); timerActive=false; secondi=180; aggiornaTimer();
+    btn.innerHTML='🔄 Avvia<br>Scambio';
+    btn.style.background='linear-gradient(135deg,#1e3a5f,#3b82f6)';
+  } else {
+    secondi=180; timerActive=true; timerInterval=setInterval(tickTimer,1000);
+    btn.innerHTML='⏹ Ferma';
+    btn.style.background='linear-gradient(135deg,#7f1d1d,#ef4444)';
+  }
+}
+function tickTimer(){
+  secondi--; aggiornaTimer();
+  if(secondi<=0){
+    clearInterval(timerInterval); timerActive=false;
+    const btn=document.getElementById('btn-scambio');
+    btn.innerHTML='🔄 Avvia<br>Scambio';
+    btn.style.background='linear-gradient(135deg,#1e3a5f,#3b82f6)';
+  }
+}
+function aggiornaTimer(){
+  const arc=document.getElementById('timer-arc'), txt=document.getElementById('timer-txt');
+  arc.style.strokeDashoffset=(2*Math.PI*27)*(1-secondi/180);
+  if(secondi<=0){
+    arc.style.stroke='#ef4444'; txt.style.color='#ef4444'; txt.textContent='FINE';
+  } else {
+    arc.style.stroke=timerActive?'#fbbf24':'#334155';
+    txt.style.color =timerActive?'#fbbf24':'#94a3b8';
+    txt.textContent=`${Math.floor(secondi/60)}:${(secondi%60).toString().padStart(2,'0')}`;
+  }
+}
+
+function pescaCarta(){
+  if(flipping)return; flipping=true;
+  const deck=document.getElementById('card-deck');
+  deck.classList.add('flipping');
+  setTimeout(()=>{
+    let c,t=0;
+    do{c=CARTE[Math.floor(Math.random()*12)];t++;}while(ultimeCarte.includes(c.id)&&t<20);
+    ultimeCarte=[c.id,...ultimeCarte].slice(0,5);
+    const res=document.getElementById('card-result');
+    res.innerHTML=`<div class="card-emoji">${c.emoji}</div><div class="card-title">${c.titolo}</div><div class="card-body">${c.testo}</div>`;
+    res.classList.add('visible');
+    deck.classList.remove('flipping'); flipping=false;
+  },300);
+}
+</script>
+
+</body>
+</html>
