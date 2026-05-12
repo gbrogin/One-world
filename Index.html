@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="it">
 <head>
 <meta charset="UTF-8">
@@ -11,279 +10,304 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-–gold:    #fbbf24;
-–muted:   #64748b;
-–red:     #ef4444;
-–green:   #22c55e;
-–cibo:    #4ade80;
-–materie: #fb923c;
-–energie: #facc15;
-–salute:  #f87171;
-–sapere:  #60a5fa;
-–beni:    #c084fc;
-}
+  :root {
+    --gold:    #fbbf24;
+    --muted:   #64748b;
+    --red:     #ef4444;
+    --green:   #22c55e;
+    --cibo:    #4ade80;
+    --materie: #fb923c;
+    --energie: #facc15;
+    --salute:  #f87171;
+    --sapere:  #60a5fa;
+    --beni:    #c084fc;
+  }
 
-html {
-background: #0a0e1a;
-/* blocca qualsiasi bounce/scroll su iOS */
-position: fixed;
-width: 100%;
-height: 100%;
-}
+  html {
+    background: #0a0e1a;
+    /* blocca qualsiasi bounce/scroll su iOS */
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
 
-body {
-/* usiamo window.innerHeight via JS — vedi sotto */
-width: 100%;
-height: 100%;
-overflow: hidden;
-color: #e2e8f0;
-font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
-background:
-radial-gradient(ellipse at 20% 50%, #0d1f3c 0%, #0a0e1a 65%),
-radial-gradient(ellipse at 80% 20%, #1a0d2e 0%, #0a0e1a 55%),
-#0a0e1a;
-display: grid;
-grid-template-rows: auto 1fr 1fr auto;
-}
+  body {
+    /* usiamo window.innerHeight via JS — vedi sotto */
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    color: #e2e8f0;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    background:
+      radial-gradient(ellipse at 20% 50%, #0d1f3c 0%, #0a0e1a 65%),
+      radial-gradient(ellipse at 80% 20%, #1a0d2e 0%, #0a0e1a 55%),
+      #0a0e1a;
+    display: grid;
+    grid-template-rows: auto 1fr 1fr auto;
+  }
 
-/* ── HEADER ── */
-header { text-align: center; color: #e2e8f0; }
-.sub {
-font-size: 1.2vh;
-letter-spacing: 0.5vw;
-color: #64748b;
-text-transform: uppercase;
-}
-h1 {
-font-family: ‘Cinzel’, Georgia, serif;
-font-size: 3.2vh;
-font-weight: 900;
-letter-spacing: 0.6vw;
-background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-background-clip: text;
-text-transform: uppercase;
-line-height: 1.2;
-}
-.divider {
-width: 10vw; height: 1px;
-background: linear-gradient(90deg, transparent, #fbbf24, transparent);
-margin: 0.3vh auto 0;
-}
+  /* ── HEADER ── */
+  header { text-align: center; color: #e2e8f0; }
+  .sub {
+    font-size: 1.2vh;
+    letter-spacing: 0.5vw;
+    color: #64748b;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 3.2vh;
+    font-weight: 900;
+    letter-spacing: 0.6vw;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-transform: uppercase;
+    line-height: 1.2;
+  }
+  .divider {
+    width: 10vw; height: 1px;
+    background: linear-gradient(90deg, transparent, #fbbf24, transparent);
+    margin: 0.3vh auto 0;
+  }
 
-/* ── RIGHE CORPORAZIONI ── */
-.corp-row {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 0.7vw;
-min-height: 0;
-padding: 0 1vw;
-}
+  /* ── RIGHE CORPORAZIONI ── */
+  .corp-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.7vw;
+    min-height: 0;
+    padding: 0 1vw;
+  }
 
-.corp-panel {
-background: rgba(255,255,255,0.04);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 1.2vh;
-padding: 0.8vh 1vw;
-position: relative;
-overflow: hidden;
-display: flex;
-flex-direction: column;
-gap: 0.2vh;
-}
+  .corp-panel {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.2vh;
+    padding: 0.8vh 1vw;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2vh;
+  }
 
-.corp-bg-num {
-position: absolute; top: -0.05em; right: 0.1em;
-font-family: ‘Cinzel’, Georgia, serif;
-font-size: 7.5vh; font-weight: 900;
-color: rgba(255,255,255,0.04);
-line-height: 1; user-select: none; pointer-events: none;
-}
+  .corp-bg-num {
+    position: absolute; top: -0.05em; right: 0.1em;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 7.5vh; font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    line-height: 1; user-select: none; pointer-events: none;
+  }
 
-.corp-title {
-font-size: 1.2vh;
-letter-spacing: 0.2vw;
-color: #94a3b8;
-text-transform: uppercase;
-margin-bottom: 0.2vh;
-flex-shrink: 0;
-}
-.corp-title span { color: #fbbf24; font-weight: 700; }
+  .corp-title {
+    font-size: 1.2vh;
+    letter-spacing: 0.2vw;
+    color: #94a3b8;
+    text-transform: uppercase;
+    margin-bottom: 0.2vh;
+    flex-shrink: 0;
+  }
+  .corp-title span { color: #fbbf24; font-weight: 700; }
 
-.voci-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 0.25vh 0.7vw;
-flex: 1; min-height: 0;
-align-content: space-evenly;
-}
+  .voci-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25vh 0.7vw;
+    flex: 1; min-height: 0;
+    align-content: space-evenly;
+  }
 
-.voce-row {
-display: flex; align-items: center;
-gap: 0.35vw;
-}
+  .voce-row {
+    display: flex; align-items: center;
+    gap: 0.35vw;
+  }
 
-.voce-icon {
-font-size: 1.5vh;
-width: 2vw;
-text-align: center; flex-shrink: 0;
-}
+  .voce-icon {
+    font-size: 1.5vh;
+    width: 2vw;
+    text-align: center; flex-shrink: 0;
+  }
 
-.voce-label {
-font-size: 1.2vh;
-text-transform: uppercase;
-flex: 1; min-width: 0;
-white-space: nowrap; overflow: hidden;
-color: #e2e8f0;
-}
+  .voce-label {
+    font-size: 1.2vh;
+    text-transform: uppercase;
+    flex: 1; min-width: 0;
+    white-space: nowrap; overflow: hidden;
+    color: #e2e8f0;
+  }
 
-.voce-val {
-font-size: 2vh; font-weight: 700;
-width: 2.8vw;
-text-align: center;
-color: #f1f5f9;
-flex-shrink: 0;
-}
+  .voce-val {
+    font-size: 2vh; font-weight: 700;
+    width: 2.8vw; min-width: 28px;
+    text-align: center;
+    color: #f1f5f9;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-bottom: 1px dashed rgba(255,255,255,0.2);
+  }
+  .voce-val:focus {
+    outline: none;
+    border-bottom: 1px solid #fbbf24;
+    color: #fbbf24;
+  }
 
-.btn-sm {
-width: 3vh; height: 3vh;
-min-width: 32px; min-height: 32px;
-border-radius: 0.5vh;
-border: 1px solid;
-font-size: 2vh; font-weight: 700;
-cursor: pointer;
-display: flex; align-items: center; justify-content: center;
-flex-shrink: 0;
-transition: filter 0.15s, transform 0.1s;
-line-height: 1; background: transparent; padding: 0;
-}
-.btn-sm:active { transform: scale(0.88); filter: brightness(1.4); }
-.btn-minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
-.btn-plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
+  .btn-prod {
+    margin-top: 0.3vh;
+    width: 100%;
+    padding: 0.35vh 0;
+    background: rgba(192,132,252,0.15);
+    border: 1px solid rgba(192,132,252,0.35);
+    border-radius: 0.5vh;
+    color: #c084fc;
+    font-size: 1vh;
+    font-weight: 700;
+    letter-spacing: 0.1vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    transition: filter 0.15s, transform 0.1s;
+    flex-shrink: 0;
+  }
+  .btn-prod:active { filter: brightness(1.4); transform: scale(0.97); }
 
-/* ── BARRA INFERIORE ── */
-.bottom-bar {
-display: grid;
-grid-template-columns: 1fr 1fr 1fr;
-gap: 0.7vw;
-min-height: 0;
-padding: 0 1vw 0.5vh;
-}
+  .btn-sm {
+    width: 3vh; height: 3vh;
+    min-width: 32px; min-height: 32px;
+    border-radius: 0.5vh;
+    border: 1px solid;
+    font-size: 2vh; font-weight: 700;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: filter 0.15s, transform 0.1s;
+    line-height: 1; background: transparent; padding: 0;
+  }
+  .btn-sm:active { transform: scale(0.88); filter: brightness(1.4); }
+  .btn-minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
+  .btn-plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
 
-.bottom-panel {
-background: rgba(255,255,255,0.04);
-border: 1px solid rgba(255,255,255,0.1);
-border-radius: 1.2vh;
-padding: 0.7vh 1vw;
-display: flex; flex-direction: column;
-align-items: center; justify-content: center;
-gap: 0.5vh;
-}
+  /* ── BARRA INFERIORE ── */
+  .bottom-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.7vw;
+    min-height: 0;
+    padding: 0 1vw 0.5vh;
+  }
 
-.panel-label {
-font-size: 1.1vh;
-letter-spacing: 0.25vw;
-text-transform: uppercase;
-color: #64748b;
-}
+  .bottom-panel {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1.2vh;
+    padding: 0.7vh 1vw;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 0.5vh;
+  }
 
-.scarti-row { display: flex; align-items: center; gap: 2vw; }
-.scarti-val {
-font-family: ‘Cinzel’, Georgia, serif;
-font-size: 4.5vh; font-weight: 900;
-color: #fbbf24; line-height: 1;
-}
-.btn-lg {
-width: 4.2vh; height: 4.2vh;
-min-width: 38px; min-height: 38px;
-border-radius: 0.7vh; border: 1px solid;
-font-size: 2.8vh; font-weight: 700;
-cursor: pointer; background: transparent;
-transition: filter 0.15s, transform 0.1s; line-height: 1;
-color: #e2e8f0;
-}
-.btn-lg:active { transform: scale(0.9); filter: brightness(1.4); }
-.btn-lg.minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
-.btn-lg.plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
+  .panel-label {
+    font-size: 1.1vh;
+    letter-spacing: 0.25vw;
+    text-transform: uppercase;
+    color: #64748b;
+  }
 
-.timer-wrap { display: flex; align-items: center; gap: 1.5vw; }
-.timer-circle {
-position: relative;
-width: 8.5vh; height: 8.5vh; flex-shrink: 0;
-}
-.timer-circle svg {
-position: absolute; top: 0; left: 0;
-width: 100%; height: 100%;
-transform: rotate(-90deg);
-}
-.timer-txt {
-position: absolute; inset: 0;
-display: flex; align-items: center; justify-content: center;
-font-size: 2vh; font-weight: 700;
-color: #94a3b8;
-}
-.btn-scambio {
-padding: 0.9vh 1.4vw;
-border: none; border-radius: 0.8vh;
-color: #ffffff;
-font-size: 1.4vh; font-weight: 700;
-letter-spacing: 1px; cursor: pointer;
-text-transform: uppercase;
-font-family: ‘Share Tech Mono’, ‘Courier New’, monospace;
-transition: filter 0.2s, transform 0.1s;
-white-space: nowrap; line-height: 1.5;
-}
-.btn-scambio:active { transform: scale(0.95); }
+  .scarti-row { display: flex; align-items: center; gap: 2vw; }
+  .scarti-val {
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 4.5vh; font-weight: 900;
+    color: #fbbf24; line-height: 1;
+  }
+  .btn-lg {
+    width: 4.2vh; height: 4.2vh;
+    min-width: 38px; min-height: 38px;
+    border-radius: 0.7vh; border: 1px solid;
+    font-size: 2.8vh; font-weight: 700;
+    cursor: pointer; background: transparent;
+    transition: filter 0.15s, transform 0.1s; line-height: 1;
+    color: #e2e8f0;
+  }
+  .btn-lg:active { transform: scale(0.9); filter: brightness(1.4); }
+  .btn-lg.minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
+  .btn-lg.plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
 
-.carte-inner { display: flex; align-items: center; gap: 1vw; width: 100%; }
-.card-deck {
-width: 5.5vh; height: 8vh; flex-shrink: 0;
-border: 2px solid rgba(251,191,36,0.45);
-border-radius: 0.8vh;
-display: flex; align-items: center; justify-content: center;
-font-size: 3.2vh; cursor: pointer;
-transition: transform 0.2s, box-shadow 0.2s;
-box-shadow: 0 4px 16px rgba(251,191,36,0.12);
-background: linear-gradient(135deg, #1e293b, #0f172a);
-}
-.card-deck:active { transform: scale(0.93); }
-.card-deck.flipping { transform: rotateY(90deg); }
+  .timer-wrap { display: flex; align-items: center; gap: 1.5vw; }
+  .timer-circle {
+    position: relative;
+    width: 8.5vh; height: 8.5vh; flex-shrink: 0;
+  }
+  .timer-circle svg {
+    position: absolute; top: 0; left: 0;
+    width: 100%; height: 100%;
+    transform: rotate(-90deg);
+  }
+  .timer-txt {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 2vh; font-weight: 700;
+    color: #94a3b8;
+  }
+  .btn-scambio {
+    padding: 0.9vh 1.4vw;
+    border: none; border-radius: 0.8vh;
+    color: #ffffff;
+    font-size: 1.4vh; font-weight: 700;
+    letter-spacing: 1px; cursor: pointer;
+    text-transform: uppercase;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    transition: filter 0.2s, transform 0.1s;
+    white-space: nowrap; line-height: 1.5;
+  }
+  .btn-scambio:active { transform: scale(0.95); }
 
-.card-result {
-flex: 1;
-background: rgba(251,191,36,0.07);
-border: 1px solid rgba(251,191,36,0.28);
-border-radius: 0.8vh;
-padding: 0.6vh 0.8vw;
-text-align: left;
-animation: fadeIn 0.3s ease;
-overflow-y: auto;
-max-height: 11vh;
-display: none;
--webkit-overflow-scrolling: touch;
-}
-.card-result.visible { display: block; }
-.card-result::-webkit-scrollbar { width: 3px; }
-.card-result::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 2px; }
+  .carte-inner { display: flex; align-items: center; gap: 1vw; width: 100%; }
+  .card-deck {
+    width: 5.5vh; height: 8vh; flex-shrink: 0;
+    border: 2px solid rgba(251,191,36,0.45);
+    border-radius: 0.8vh;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3.2vh; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 16px rgba(251,191,36,0.12);
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+  }
+  .card-deck:active { transform: scale(0.93); }
+  .card-deck.flipping { transform: rotateY(90deg); }
 
-.card-emoji  { font-size: 1.6vh; }
-.card-title  {
-font-size: 1.3vh; font-weight: 700;
-letter-spacing: 1px; color: #fbbf24;
-text-transform: uppercase;
-margin: 0.2vh 0 0.3vh;
-}
-.card-body { color: #e2e8f0; font-size: 1.2vh; line-height: 1.5; }
-.hint { font-size: 1vh; color: #475569; letter-spacing: 1px; }
+  .card-result {
+    flex: 1;
+    background: rgba(251,191,36,0.07);
+    border: 1px solid rgba(251,191,36,0.28);
+    border-radius: 0.8vh;
+    padding: 0.6vh 0.8vw;
+    text-align: left;
+    animation: fadeIn 0.3s ease;
+    overflow-y: auto;
+    max-height: 11vh;
+    display: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  .card-result.visible { display: block; }
+  .card-result::-webkit-scrollbar { width: 3px; }
+  .card-result::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 2px; }
 
-@keyframes fadeIn {
-from { opacity:0; transform: translateY(3px); }
-to   { opacity:1; transform: translateY(0); }
-}
+  .card-emoji  { font-size: 1.6vh; }
+  .card-title  {
+    font-size: 1.3vh; font-weight: 700;
+    letter-spacing: 1px; color: #fbbf24;
+    text-transform: uppercase;
+    margin: 0.2vh 0 0.3vh;
+  }
+  .card-body { color: #e2e8f0; font-size: 1.2vh; line-height: 1.5; }
+  .hint { font-size: 1vh; color: #475569; letter-spacing: 1px; }
+
+  @keyframes fadeIn {
+    from { opacity:0; transform: translateY(3px); }
+    to   { opacity:1; transform: translateY(0); }
+  }
 </style>
-
 </head>
 <body>
 
@@ -359,29 +383,29 @@ const COLORS = {cibo:'#4ade80',materie:'#fb923c',energie:'#facc15',salute:'#f871
 
 const CARTE = [
   {id:1,  emoji:'🌊', titolo:'ALLUVIONE',
-   testo:'Le corporazioni con meno di 4 gettoni SALUTE e meno di 4 gettoni CONOSCENZA perdono 1 gettone MATERIE PRIME e 1 gettone CIBO.'},
+   testo:'Le corporazioni con meno di 4 gettoni SALUTE e meno di 4 gettoni SAPERE perdono 1 gettone MATERIE PRIME e 1 gettone CIBO.'},
   {id:2,  emoji:'🦠', titolo:'PANDEMIA',
    testo:'Tutte le corporazioni perdono 1 gettone SALUTE.'},
   {id:3,  emoji:'📈', titolo:'BOOM ECONOMICO',
    testo:'Le corporazioni con più di 6 gettoni ENERGIA producono il doppio dei BENI in questo turno.'},
   {id:4,  emoji:'🔬', titolo:'SCOPERTA TECNOLOGICA',
-   testo:'Le corporazioni con più di 4 gettoni CONOSCENZA guadagnano 1 gettone ENERGIA. Le corporazioni con più di 7 gettoni CONOSCENZA guadagnano 1 gettone ENERGIA e 1 gettone SALUTE.'},
+   testo:'Le corporazioni con più di 4 gettoni SAPERE guadagnano 1 gettone ENERGIA. Le corporazioni con più di 7 gettoni SAPERE guadagnano 1 gettone ENERGIA e 1 gettone SALUTE.'},
   {id:5,  emoji:'⚔️', titolo:'GUERRA',
-   testo:'Le corporazioni che non hanno almeno 7 gettoni ENERGIA, 7 gettoni SALUTE e 7 gettoni CONOSCENZA perdono 1 gettone per ogni risorsa mancante.'},
+   testo:'Le corporazioni che non hanno almeno 7 gettoni ENERGIA, 7 gettoni SALUTE e 7 gettoni SAPERE perdono 1 gettone per ogni risorsa mancante.'},
   {id:6,  emoji:'🕊️', titolo:'ACCORDO O.N.U.',
    testo:'Tutte le corporazioni devono donare almeno 1 gettone ad un\'altra corporazione.'},
   {id:7,  emoji:'☢️', titolo:'RIFIUTI TOSSICI',
    testo:'Ogni corporazione con 7 gettoni ENERGIA raddoppia i propri gettoni CIBO per questo turno, ma deve scegliere due altre corporazioni cui viene tolto 1 gettone SALUTE.'},
   {id:8,  emoji:'🌿', titolo:'ACCORDO SUL CLIMA',
-   testo:'Se ogni corporazione con almeno 6 gettoni ENERGIA, 6 gettoni CIBO e 6 gettoni CONOSCENZA dona 2 gettoni risorsa alle altre, tutti i gettoni SCARTO vengono eliminati.'},
+   testo:'Se ogni corporazione con almeno 6 gettoni ENERGIA, 6 gettoni CIBO e 6 gettoni SAPERE dona 2 gettoni risorsa alle altre, tutti i gettoni SCARTO vengono eliminati.'},
   {id:9,  emoji:'🎓', titolo:'RETE EDUCATIVA GLOBALE',
-   testo:'Le corporazioni con almeno 5 gettoni CONOSCENZA possono donare 1 gettone CONOSCENZA alle corporazioni che ne hanno di meno, per guadagnare 1 gettone ENERGIA.'},
+   testo:'Le corporazioni con almeno 5 gettoni SAPERE possono donare 1 gettone SAPERE alle corporazioni che ne hanno di meno, per guadagnare 1 gettone ENERGIA.'},
   {id:10, emoji:'🌻', titolo:'RACCOLTO ECCEZIONALE',
    testo:'Tutte le corporazioni con meno di 4 gettoni CIBO guadagnano 1 gettone CIBO. Tutte le corporazioni con meno di 4 gettoni MATERIE PRIME guadagnano 1 gettone MATERIE PRIME.'},
   {id:11, emoji:'✊', titolo:'IMPEGNO DEI GIOVANI',
-   testo:'Le corporazioni con almeno 6 gettoni CONOSCENZA donano almeno 1 gettone CIBO o 1 gettone SALUTE alle due corporazioni più povere.'},
+   testo:'Le corporazioni con almeno 6 gettoni SAPERE donano almeno 1 gettone CIBO o 1 gettone SALUTE alle due corporazioni più povere.'},
   {id:12, emoji:'🌡️', titolo:'CRISI CLIMATICA',
-   testo:'Le corporazioni con meno di 7 gettoni ENERGIA e meno di 7 gettoni CONOSCENZA perdono 1 gettone CIBO e 1 gettone MATERIE PRIME.'},
+   testo:'Le corporazioni con meno di 7 gettoni ENERGIA e meno di 7 gettoni SAPERE perdono 1 gettone CIBO e 1 gettone MATERIE PRIME.'},
 ];
 
 const stato = {};
@@ -394,7 +418,8 @@ function buildCorp(n) {
   p.className = 'corp-panel';
   p.innerHTML = `<div class="corp-bg-num">${n}</div>
     <div class="corp-title">Corporazione <span>${n}</span></div>
-    <div class="voci-grid" id="vg-${n}"></div>`;
+    <div class="voci-grid" id="vg-${n}"></div>
+    <button class="btn-prod" onclick="produci(${n})">⚙️ Produci beni</button>`;
   document.getElementById(n<=3?'row-top':'row-mid').appendChild(p);
   const vg = document.getElementById(`vg-${n}`);
   VOCI.forEach(v => {
@@ -404,16 +429,49 @@ function buildCorp(n) {
       <span class="voce-icon">${ICONS[v]}</span>
       <span class="voce-label" style="color:${COLORS[v]}">${v}</span>
       <button class="btn-sm btn-minus" onclick="cambia(${n},'${v}',-1)">−</button>
-      <span class="voce-val" id="val-${n}-${v}">0</span>
+      <span class="voce-val" id="val-${n}-${v}"
+        contenteditable="true"
+        inputmode="numeric"
+        onblur="setDiretto(${n},'${v}',this)"
+        onkeydown="if(event.key==='Enter'){this.blur();}"
+      >0</span>
       <button class="btn-sm btn-plus"  onclick="cambia(${n},'${v}',1)">+</button>`;
     vg.appendChild(r);
   });
 }
 [1,2,3,4,5,6].forEach(buildCorp);
 
+function aggiorna(corp, voce) {
+  document.getElementById(`val-${corp}-${voce}`).textContent = stato[corp][voce];
+}
 function cambia(corp,voce,delta){
   stato[corp][voce]=Math.max(0,stato[corp][voce]+delta);
-  document.getElementById(`val-${corp}-${voce}`).textContent=stato[corp][voce];
+  aggiorna(corp,voce);
+}
+function setDiretto(corp, voce, el) {
+  const v = parseInt(el.textContent.trim(), 10);
+  stato[corp][voce] = isNaN(v) || v < 0 ? 0 : v;
+  el.textContent = stato[corp][voce];
+}
+function produci(corp) {
+  // Produzione = min(energia, materie) + floor(cibo / 2)
+  const e = stato[corp]['energie'];
+  const m = stato[corp]['materie'];
+  const c = stato[corp]['cibo'];
+  const prod = Math.min(e, m) + Math.floor(c / 2);
+  stato[corp]['beni'] += prod;
+  aggiorna(corp, 'beni');
+  // Feedback visivo sul pulsante
+  const btn = document.querySelector(`#vg-${corp}`).nextElementSibling;
+  const orig = btn.innerHTML;
+  btn.innerHTML = `✅ +${prod} beni`;
+  btn.style.color = '#4ade80';
+  btn.style.borderColor = 'rgba(74,222,128,0.4)';
+  setTimeout(() => {
+    btn.innerHTML = orig;
+    btn.style.color = '';
+    btn.style.borderColor = '';
+  }, 1800);
 }
 function cambiaScarto(delta){
   scartiGlobali=Math.max(0,scartiGlobali+delta);
@@ -468,6 +526,5 @@ function pescaCarta(){
   },300);
 }
 </script>
-
 </body>
 </html>
