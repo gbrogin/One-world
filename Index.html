@@ -10,31 +10,13 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --gold:    #fbbf24;
-    --muted:   #64748b;
-    --red:     #ef4444;
-    --green:   #22c55e;
-    --cibo:    #4ade80;
-    --materie: #fb923c;
-    --energie: #facc15;
-    --salute:  #f87171;
-    --sapere:  #60a5fa;
-    --beni:    #c084fc;
-  }
-
   html {
     background: #0a0e1a;
-    /* blocca qualsiasi bounce/scroll su iOS */
     position: fixed;
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
   }
-
   body {
-    /* usiamo window.innerHeight via JS — vedi sotto */
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     overflow: hidden;
     color: #e2e8f0;
     font-family: 'Share Tech Mono', 'Courier New', monospace;
@@ -47,7 +29,14 @@
   }
 
   /* ── HEADER ── */
-  header { text-align: center; color: #e2e8f0; }
+  header { text-align: center; }
+  .header-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    padding: 0 1vw;
+  }
   .sub {
     font-size: 1.2vh;
     letter-spacing: 0.5vw;
@@ -71,6 +60,21 @@
     background: linear-gradient(90deg, transparent, #fbbf24, transparent);
     margin: 0.3vh auto 0;
   }
+  .btn-save, .btn-load {
+    padding: 0.6vh 1.2vw;
+    border-radius: 0.8vh;
+    border: 1px solid;
+    font-size: 1.4vh; font-weight: 700;
+    letter-spacing: 0.1vw;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Share Tech Mono', 'Courier New', monospace;
+    transition: filter 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .btn-save { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.4); color: #22c55e; }
+  .btn-load { background: rgba(96,165,250,0.12); border-color: rgba(96,165,250,0.4); color: #60a5fa; }
+  .btn-save:active, .btn-load:active { transform: scale(0.94); filter: brightness(1.3); }
 
   /* ── RIGHE CORPORAZIONI ── */
   .corp-row {
@@ -80,19 +84,15 @@
     min-height: 0;
     padding: 0 1vw;
   }
-
   .corp-panel {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
     border-radius: 1.2vh;
     padding: 0.8vh 1vw;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
     gap: 0.2vh;
   }
-
   .corp-bg-num {
     position: absolute; top: -0.05em; right: 0.1em;
     font-family: 'Cinzel', Georgia, serif;
@@ -100,7 +100,6 @@
     color: rgba(255,255,255,0.04);
     line-height: 1; user-select: none; pointer-events: none;
   }
-
   .corp-title {
     font-size: 4.8vh;
     letter-spacing: 0.2vw;
@@ -118,65 +117,26 @@
     flex: 1; min-height: 0;
     align-content: space-evenly;
   }
-
-  .voce-row {
-    display: flex; align-items: center;
-    gap: 0.35vw;
-  }
-
-  .voce-icon {
-    font-size: 1.5vh;
-    width: 2vw;
-    text-align: center; flex-shrink: 0;
-  }
-
+  .voce-row { display: flex; align-items: center; gap: 0.35vw; }
+  .voce-icon { font-size: 1.5vh; width: 2vw; text-align: center; flex-shrink: 0; }
   .voce-label {
-    font-size: 1.2vh;
-    text-transform: uppercase;
-    flex: 1; min-width: 0;
-    white-space: nowrap; overflow: hidden;
+    font-size: 1.2vh; text-transform: uppercase;
+    flex: 1; min-width: 0; white-space: nowrap; overflow: hidden;
     color: #e2e8f0;
   }
-
   .voce-val {
     font-size: 2vh; font-weight: 700;
     width: 2.8vw; min-width: 28px;
-    text-align: center;
-    color: #f1f5f9;
-    flex-shrink: 0;
+    text-align: center; color: #f1f5f9; flex-shrink: 0;
     cursor: pointer;
     border-bottom: 1px dashed rgba(255,255,255,0.2);
   }
-  .voce-val:focus {
-    outline: none;
-    border-bottom: 1px solid #fbbf24;
-    color: #fbbf24;
-  }
-
-  .btn-prod {
-    margin-top: 0.3vh;
-    width: 100%;
-    padding: 1.8vh 0;
-    background: rgba(192,132,252,0.15);
-    border: 1px solid rgba(192,132,252,0.35);
-    border-radius: 0.5vh;
-    color: #c084fc;
-    font-size: 2.8vh;
-    font-weight: 700;
-    letter-spacing: 0.1vw;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-    transition: filter 0.15s, transform 0.1s;
-    flex-shrink: 0;
-  }
-  .btn-prod:active { filter: brightness(1.4); transform: scale(0.97); }
+  .voce-val:focus { outline: none; border-bottom: 1px solid #fbbf24; color: #fbbf24; }
 
   .btn-sm {
     width: 3vh; height: 3vh;
     min-width: 32px; min-height: 32px;
-    border-radius: 0.5vh;
-    border: 1px solid;
+    border-radius: 0.5vh; border: 1px solid;
     font-size: 2vh; font-weight: 700;
     cursor: pointer;
     display: flex; align-items: center; justify-content: center;
@@ -188,58 +148,24 @@
   .btn-minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
   .btn-plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
 
-  /* ── PULSANTI SALVA/CARICA ── */
-  .header-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2vw;
-  }
-  .btn-save, .btn-load {
-    padding: 0.6vh 1.2vw;
-    border-radius: 0.8vh;
-    border: 1px solid;
-    font-size: 1.3vh; font-weight: 700;
-    letter-spacing: 0.1vw;
-    text-transform: uppercase;
+  .btn-prod {
+    margin-top: 0.3vh;
+    width: 100%;
+    padding: 1.8vh 0;
+    background: rgba(192,132,252,0.15);
+    border: 1px solid rgba(192,132,252,0.35);
+    border-radius: 0.5vh;
+    color: #c084fc;
+    font-size: 2.8vh; font-weight: 700;
+    letter-spacing: 0.1vw; text-transform: uppercase;
     cursor: pointer;
     font-family: 'Share Tech Mono', 'Courier New', monospace;
-    transition: filter 0.2s, transform 0.1s;
-    white-space: nowrap;
+    transition: filter 0.15s, transform 0.1s;
+    flex-shrink: 0;
   }
-  .btn-save {
-    background: rgba(34,197,94,0.12);
-    border-color: rgba(34,197,94,0.4);
-    color: #22c55e;
-  }
-  .btn-load {
-    background: rgba(96,165,250,0.12);
-    border-color: rgba(96,165,250,0.4);
-    color: #60a5fa;
-  }
-  .btn-save:active, .btn-load:active { transform: scale(0.94); filter: brightness(1.3); }
+  .btn-prod:active { filter: brightness(1.4); transform: scale(0.97); }
 
-  /* Toast notifica */
-  .toast {
-    position: fixed;
-    bottom: 3vh; left: 50%;
-    transform: translateX(-50%) translateY(10px);
-    background: rgba(15,23,42,0.95);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 1vh;
-    padding: 1.2vh 2.5vw;
-    font-size: 1.6vh; color: #e2e8f0;
-    letter-spacing: 0.1vw;
-    opacity: 0;
-    transition: opacity 0.3s, transform 0.3s;
-    z-index: 1000;
-    pointer-events: none;
-    white-space: nowrap;
-  }
-  .toast.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
+  /* ── BARRA INFERIORE ── */
   .bottom-bar {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -247,7 +173,6 @@
     min-height: 0;
     padding: 0 1vw 0.5vh;
   }
-
   .bottom-panel {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.1);
@@ -257,14 +182,12 @@
     align-items: center; justify-content: center;
     gap: 0.5vh;
   }
-
   .panel-label {
-    font-size: 1.1vh;
-    letter-spacing: 0.25vw;
-    text-transform: uppercase;
-    color: #64748b;
+    font-size: 1.1vh; letter-spacing: 0.25vw;
+    text-transform: uppercase; color: #64748b;
   }
 
+  /* Scarti */
   .scarti-row { display: flex; align-items: center; gap: 2vw; }
   .scarti-val {
     font-family: 'Cinzel', Georgia, serif;
@@ -278,12 +201,12 @@
     font-size: 2.8vh; font-weight: 700;
     cursor: pointer; background: transparent;
     transition: filter 0.15s, transform 0.1s; line-height: 1;
-    color: #e2e8f0;
   }
   .btn-lg:active { transform: scale(0.9); filter: brightness(1.4); }
   .btn-lg.minus { color: #ef4444; border-color: rgba(239,68,68,0.45); }
   .btn-lg.plus  { color: #22c55e; border-color: rgba(34,197,94,0.45); }
 
+  /* Timer */
   .timer-wrap { display: flex; align-items: center; gap: 1.5vw; }
   .timer-circle {
     position: relative;
@@ -297,14 +220,12 @@
   .timer-txt {
     position: absolute; inset: 0;
     display: flex; align-items: center; justify-content: center;
-    font-size: 2vh; font-weight: 700;
-    color: #94a3b8;
+    font-size: 2vh; font-weight: 700; color: #94a3b8;
   }
   .btn-scambio {
     padding: 0.9vh 1.4vw;
     border: none; border-radius: 0.8vh;
-    color: #ffffff;
-    font-size: 1.4vh; font-weight: 700;
+    color: #fff; font-size: 1.4vh; font-weight: 700;
     letter-spacing: 1px; cursor: pointer;
     text-transform: uppercase;
     font-family: 'Share Tech Mono', 'Courier New', monospace;
@@ -313,9 +234,9 @@
   }
   .btn-scambio:active { transform: scale(0.95); }
 
-  .carte-inner { display: flex; align-items: center; gap: 1vw; width: 100%; }
+  /* Mazzo carte */
   .card-deck {
-    width: 5.5vh; height: 8vh; flex-shrink: 0;
+    width: 5.5vh; height: 8vh;
     border: 2px solid rgba(251,191,36,0.45);
     border-radius: 0.8vh;
     display: flex; align-items: center; justify-content: center;
@@ -323,88 +244,11 @@
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 16px rgba(251,191,36,0.12);
     background: linear-gradient(135deg, #1e293b, #0f172a);
+    margin: 0 auto;
   }
   .card-deck:active { transform: scale(0.93); }
   .card-deck.flipping { transform: rotateY(90deg); }
-
-  .card-result {
-    flex: 1;
-    background: rgba(251,191,36,0.07);
-    border: 1px solid rgba(251,191,36,0.28);
-    border-radius: 0.8vh;
-    padding: 0.6vh 0.8vw;
-    text-align: left;
-    animation: fadeIn 0.3s ease;
-    overflow-y: auto;
-    max-height: 11vh;
-    display: none;
-    -webkit-overflow-scrolling: touch;
-  }
-  .card-result.visible { display: block; }
-  .card-result::-webkit-scrollbar { width: 3px; }
-  .card-result::-webkit-scrollbar-thumb { background: rgba(251,191,36,0.3); border-radius: 2px; }
-
-  .card-emoji  { font-size: 1.6vh; }
-  .card-title  {
-    font-size: 1.3vh; font-weight: 700;
-    letter-spacing: 1px; color: #fbbf24;
-    text-transform: uppercase;
-    margin: 0.2vh 0 0.3vh;
-  }
-  .card-body { color: #e2e8f0; font-size: 1.2vh; line-height: 1.5; }
-  .hint { font-size: 1vh; color: #475569; letter-spacing: 1px; }
-
-  /* ── SAVE / LOAD ── */
-  .header-wrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2vw;
-    padding: 0 1vw;
-  }
-  .btn-save, .btn-load {
-    padding: 0.6vh 1.2vw;
-    border-radius: 0.8vh;
-    font-size: 1.4vh; font-weight: 700;
-    letter-spacing: 0.1vw;
-    text-transform: uppercase;
-    cursor: pointer;
-    font-family: 'Share Tech Mono', 'Courier New', monospace;
-    transition: filter 0.2s, transform 0.1s;
-    white-space: nowrap;
-    flex-shrink: 0;
-  }
-  .btn-save {
-    background: rgba(34,197,94,0.15);
-    border: 1px solid rgba(34,197,94,0.4);
-    color: #22c55e;
-  }
-  .btn-load {
-    background: rgba(96,165,250,0.15);
-    border: 1px solid rgba(96,165,250,0.4);
-    color: #60a5fa;
-  }
-  .btn-save:active, .btn-load:active { transform: scale(0.94); filter: brightness(1.3); }
-
-  .toast {
-    position: fixed;
-    bottom: 3vh; left: 50%; transform: translateX(-50%);
-    background: rgba(15,23,42,0.95);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 1vh;
-    padding: 1.2vh 3vw;
-    color: #e2e8f0;
-    font-size: 1.8vh;
-    letter-spacing: 0.1vw;
-    z-index: 1000;
-    animation: fadeIn 0.2s ease;
-    pointer-events: none;
-  }
-
-
-    from { opacity:0; transform: translateY(3px); }
-    to   { opacity:1; transform: translateY(0); }
-  }
+  .hint { font-size: 1vh; color: #475569; letter-spacing: 1px; text-align: center; margin-top: 3px; }
 
   /* ── OVERLAY CARTA A SCHERMO INTERO ── */
   .card-overlay {
@@ -412,15 +256,12 @@
     position: fixed;
     inset: 0;
     z-index: 999;
-    background: rgba(7, 9, 15, 0.92);
+    background: rgba(7,9,15,0.92);
     align-items: center;
     justify-content: center;
-    animation: fadeIn 0.3s ease;
     padding: 4vw;
   }
-  .card-overlay.visible {
-    display: flex;
-  }
+  .card-overlay.visible { display: flex; animation: fadeIn 0.3s ease; }
   .card-modal {
     background:
       radial-gradient(ellipse at 30% 30%, #1a2a4a 0%, #0a0e1a 70%),
@@ -428,16 +269,10 @@
     border: 2px solid rgba(251,191,36,0.4);
     border-radius: 3vh;
     padding: 5vh 5vw;
-    max-width: 80vw;
-    width: 100%;
+    max-width: 80vw; width: 100%;
     text-align: center;
-    box-shadow: 0 0 60px rgba(251,191,36,0.15), 0 0 120px rgba(251,191,36,0.05);
-    position: relative;
+    box-shadow: 0 0 60px rgba(251,191,36,0.15);
     animation: cardPop 0.35s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  @keyframes cardPop {
-    from { opacity:0; transform: scale(0.85); }
-    to   { opacity:1; transform: scale(1); }
   }
   .card-modal-emoji { font-size: 8vh; line-height: 1; margin-bottom: 2vh; }
   .card-modal-titolo {
@@ -451,24 +286,43 @@
     margin-bottom: 3vh;
   }
   .card-modal-testo {
-    color: #e2e8f0;
-    font-size: 2.8vh;
-    line-height: 1.7;
-    margin-bottom: 4vh;
+    color: #e2e8f0; font-size: 2.8vh; line-height: 1.7; margin-bottom: 4vh;
   }
   .card-modal-close {
     padding: 1.5vh 4vw;
     background: linear-gradient(135deg, #1e3a5f, #3b82f6);
     border: none; border-radius: 1vh;
-    color: #fff;
-    font-size: 2vh; font-weight: 700;
-    letter-spacing: 0.2vw;
-    text-transform: uppercase;
+    color: #fff; font-size: 2vh; font-weight: 700;
+    letter-spacing: 0.2vw; text-transform: uppercase;
     cursor: pointer;
     font-family: 'Share Tech Mono', 'Courier New', monospace;
     transition: filter 0.2s, transform 0.1s;
   }
   .card-modal-close:active { transform: scale(0.95); filter: brightness(1.2); }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed;
+    bottom: 3vh; left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(15,23,42,0.95);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 1vh;
+    padding: 1.2vh 2.5vw;
+    font-size: 1.6vh; color: #e2e8f0;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 1000;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+  @keyframes cardPop {
+    from { opacity:0; transform: scale(0.85); }
+    to   { opacity:1; transform: scale(1); }
+  }
 </style>
 </head>
 <body>
@@ -476,17 +330,14 @@
 <header>
   <div class="header-wrap">
     <button class="btn-save" onclick="salvaPartita()">💾 Salva</button>
-    <div style="text-align:center">
+    <div>
       <div class="sub">Sistema di controllo</div>
       <h1>ONE WORLD</h1>
-      <div class="divider"></div>
     </div>
-    <button class="btn-load" onclick="caricaPartita()">📂 Ricarica</button>
+    <button class="btn-load" onclick="caricaPartita()">📂 Carica</button>
   </div>
+  <div class="divider"></div>
 </header>
-
-<!-- Toast notifica -->
-<div class="toast" id="toast"></div>
 
 <div class="corp-row" id="row-top"></div>
 <div class="corp-row" id="row-mid"></div>
@@ -498,7 +349,7 @@
     <div class="scarti-row">
       <button class="btn-lg minus" onclick="cambiaScarto(-1)">−</button>
       <span class="scarti-val" id="scarti-val">0</span>
-      <button class="btn-lg plus"  onclick="cambiaScarto(1)">+</button>
+      <button class="btn-lg plus" onclick="cambiaScarto(1)">+</button>
     </div>
   </div>
 
@@ -524,17 +375,13 @@
 
   <div class="bottom-panel">
     <div class="panel-label">🃏 Carte Evento</div>
-    <div class="carte-inner">
-      <div>
-        <div class="card-deck" id="card-deck" onclick="pescaCarta()">🃏</div>
-        <div class="hint" style="text-align:center;margin-top:3px">tocca</div>
-      </div>
-    </div>
+    <div class="card-deck" id="card-deck" onclick="pescaCarta()">🃏</div>
+    <div class="hint">tocca per pescare</div>
   </div>
 
 </div>
 
-<!-- OVERLAY CARTA -->
+<!-- Overlay carta a schermo intero -->
 <div class="card-overlay" id="card-overlay" onclick="chiudiOverlay()">
   <div class="card-modal" onclick="event.stopPropagation()">
     <div class="card-modal-emoji" id="overlay-emoji"></div>
@@ -544,10 +391,11 @@
   </div>
 </div>
 
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
 <script>
 // ── FIX VIEWPORT iOS ──────────────────────────────────────────────
-// Safari iPad non aggiorna vh con la barra indirizzi.
-// Impostiamo l'altezza del body direttamente via JS.
 function fixHeight() {
   document.body.style.height = window.innerHeight + 'px';
   document.documentElement.style.height = window.innerHeight + 'px';
@@ -588,15 +436,18 @@ const CARTE = [
    testo:'Le corporazioni con meno di 7 gettoni ENERGIA e meno di 7 gettoni SAPERE perdono 1 gettone CIBO e 1 gettone MATERIE PRIME.'},
 ];
 
+// ── STATO ─────────────────────────────────────────────────────────
 const stato = {};
 [1,2,3,4,5,6].forEach(n => { stato[n]={}; VOCI.forEach(v => stato[n][v]=0); });
 let scartiGlobali=0, timerActive=false, secondi=180, timerInterval=null;
 let ultimeCarte=[], flipping=false;
 
+// ── CORPORAZIONI ──────────────────────────────────────────────────
 function buildCorp(n) {
   const p = document.createElement('div');
   p.className = 'corp-panel';
-  p.innerHTML = `<div class="corp-bg-num">${n}</div>
+  p.innerHTML = `
+    <div class="corp-bg-num">${n}</div>
     <div class="corp-title">Corporazione <span>${n}</span></div>
     <div class="voci-grid" id="vg-${n}"></div>
     <button class="btn-prod" onclick="produci(${n})">⚙️ Produci beni</button>`;
@@ -610,23 +461,22 @@ function buildCorp(n) {
       <span class="voce-label" style="color:${COLORS[v]}">${v}</span>
       <button class="btn-sm btn-minus" onclick="cambia(${n},'${v}',-1)">−</button>
       <span class="voce-val" id="val-${n}-${v}"
-        contenteditable="true"
-        inputmode="numeric"
+        contenteditable="true" inputmode="numeric"
         onblur="setDiretto(${n},'${v}',this)"
-        onkeydown="if(event.key==='Enter'){this.blur();}"
-      >0</span>
-      <button class="btn-sm btn-plus"  onclick="cambia(${n},'${v}',1)">+</button>`;
+        onkeydown="if(event.key==='Enter'){this.blur();}">0</span>
+      <button class="btn-sm btn-plus" onclick="cambia(${n},'${v}',1)">+</button>`;
     vg.appendChild(r);
   });
 }
 [1,2,3,4,5,6].forEach(buildCorp);
 
+// ── LOGICA VALORI ─────────────────────────────────────────────────
 function aggiorna(corp, voce) {
   document.getElementById(`val-${corp}-${voce}`).textContent = stato[corp][voce];
 }
-function cambia(corp,voce,delta){
-  stato[corp][voce]=Math.max(0,stato[corp][voce]+delta);
-  aggiorna(corp,voce);
+function cambia(corp, voce, delta) {
+  stato[corp][voce] = Math.max(0, stato[corp][voce] + delta);
+  aggiorna(corp, voce);
 }
 function setDiretto(corp, voce, el) {
   const v = parseInt(el.textContent.trim(), 10);
@@ -634,33 +484,25 @@ function setDiretto(corp, voce, el) {
   el.textContent = stato[corp][voce];
 }
 function produci(corp) {
-  // Produzione = min(energia, materie) + floor(cibo / 2)
-  const e = stato[corp]['energie'];
-  const m = stato[corp]['materie'];
-  const c = stato[corp]['cibo'];
-  const prod = Math.min(e, m) + Math.floor(c / 2);
+  const prod = Math.min(stato[corp]['energie'], stato[corp]['materie']) + Math.floor(stato[corp]['cibo'] / 2);
   stato[corp]['beni'] += prod;
   aggiorna(corp, 'beni');
-  // Feedback visivo sul pulsante
   const btn = document.querySelector(`#vg-${corp}`).nextElementSibling;
   const orig = btn.innerHTML;
   btn.innerHTML = `✅ +${prod} beni`;
   btn.style.color = '#4ade80';
   btn.style.borderColor = 'rgba(74,222,128,0.4)';
-  setTimeout(() => {
-    btn.innerHTML = orig;
-    btn.style.color = '';
-    btn.style.borderColor = '';
-  }, 1800);
+  setTimeout(() => { btn.innerHTML = orig; btn.style.color=''; btn.style.borderColor=''; }, 1800);
 }
-function cambiaScarto(delta){
-  scartiGlobali=Math.max(0,scartiGlobali+delta);
-  document.getElementById('scarti-val').textContent=scartiGlobali;
+function cambiaScarto(delta) {
+  scartiGlobali = Math.max(0, scartiGlobali + delta);
+  document.getElementById('scarti-val').textContent = scartiGlobali;
 }
 
-function toggleTimer(){
-  const btn=document.getElementById('btn-scambio');
-  if(timerActive){
+// ── TIMER ─────────────────────────────────────────────────────────
+function toggleTimer() {
+  const btn = document.getElementById('btn-scambio');
+  if (timerActive) {
     clearInterval(timerInterval); timerActive=false; secondi=180; aggiornaTimer();
     btn.innerHTML='🔄 Avvia<br>Scambio';
     btn.style.background='linear-gradient(135deg,#1e3a5f,#3b82f6)';
@@ -670,19 +512,19 @@ function toggleTimer(){
     btn.style.background='linear-gradient(135deg,#7f1d1d,#ef4444)';
   }
 }
-function tickTimer(){
+function tickTimer() {
   secondi--; aggiornaTimer();
-  if(secondi<=0){
+  if (secondi<=0) {
     clearInterval(timerInterval); timerActive=false;
     const btn=document.getElementById('btn-scambio');
     btn.innerHTML='🔄 Avvia<br>Scambio';
     btn.style.background='linear-gradient(135deg,#1e3a5f,#3b82f6)';
   }
 }
-function aggiornaTimer(){
+function aggiornaTimer() {
   const arc=document.getElementById('timer-arc'), txt=document.getElementById('timer-txt');
   arc.style.strokeDashoffset=(2*Math.PI*27)*(1-secondi/180);
-  if(secondi<=0){
+  if (secondi<=0) {
     arc.style.stroke='#ef4444'; txt.style.color='#ef4444'; txt.textContent='FINE';
   } else {
     arc.style.stroke=timerActive?'#fbbf24':'#334155';
@@ -691,63 +533,54 @@ function aggiornaTimer(){
   }
 }
 
-function mostraToast(msg, colore) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.style.color = colore || '#e2e8f0';
-  t.style.borderColor = colore ? colore.replace(')', ',0.4)').replace('rgb','rgba') : 'rgba(255,255,255,0.15)';
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
-
-function salvaPartita() {
-  const dati = {
-    stato: stato,
-    scartiGlobali: scartiGlobali,
-    timestamp: new Date().toLocaleString('it-IT')
-  };
-  try {
-    localStorage.setItem('oneworld_save', JSON.stringify(dati));
-    mostraToast('💾 Partita salvata — ' + dati.timestamp, '#22c55e');
-  } catch(e) {
-    mostraToast('⚠️ Errore nel salvataggio', '#ef4444');
-  }
-}
-
-function caricaPartita() {
-  const raw = localStorage.getItem('oneworld_save');
-  if (!raw) { mostraToast('⚠️ Nessun salvataggio trovato.', '#f59e0b'); return; }
-  const dati = JSON.parse(raw);
-  scartiGlobali = dati.scartiGlobali || 0;
-  document.getElementById('scarti-val').textContent = scartiGlobali;
-  [1,2,3,4,5,6].forEach(n => {
-    VOCI.forEach(v => {
-      stato[n][v] = dati.stato[n][v] || 0;
-      aggiorna(n, v);
-    });
-  });
-  mostraToast('📂 Partita ripristinata — ' + (dati.timestamp || ''), '#60a5fa');
-}
-
-function chiudiOverlay() {
-  document.getElementById('card-overlay').classList.remove('visible');
-  flipping = false;
-}
-
-function pescaCarta(){
-  if(flipping)return; flipping=true;
+// ── CARTE ─────────────────────────────────────────────────────────
+function pescaCarta() {
+  if (flipping) return; flipping=true;
   const deck=document.getElementById('card-deck');
   deck.classList.add('flipping');
   setTimeout(()=>{
     let c,t=0;
-    do{c=CARTE[Math.floor(Math.random()*12)];t++;}while(ultimeCarte.includes(c.id)&&t<20);
+    do { c=CARTE[Math.floor(Math.random()*12)]; t++; } while(ultimeCarte.includes(c.id)&&t<20);
     ultimeCarte=[c.id,...ultimeCarte].slice(0,5);
-    document.getElementById('overlay-emoji').textContent = c.emoji;
-    document.getElementById('overlay-titolo').textContent = c.titolo;
-    document.getElementById('overlay-testo').textContent = c.testo;
+    document.getElementById('overlay-emoji').textContent=c.emoji;
+    document.getElementById('overlay-titolo').textContent=c.titolo;
+    document.getElementById('overlay-testo').textContent=c.testo;
     document.getElementById('card-overlay').classList.add('visible');
     deck.classList.remove('flipping');
   },300);
+}
+function chiudiOverlay() {
+  document.getElementById('card-overlay').classList.remove('visible');
+  flipping=false;
+}
+
+// ── SALVA / CARICA ────────────────────────────────────────────────
+function mostraToast(msg, colore) {
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.style.color=colore||'#e2e8f0';
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+function salvaPartita() {
+  const dati={ stato, scartiGlobali, timestamp: new Date().toLocaleString('it-IT') };
+  try {
+    localStorage.setItem('oneworld_save', JSON.stringify(dati));
+    mostraToast('💾 Salvato — '+dati.timestamp, '#22c55e');
+  } catch(e) { mostraToast('⚠️ Errore nel salvataggio','#ef4444'); }
+}
+function caricaPartita() {
+  try {
+    const raw=localStorage.getItem('oneworld_save');
+    if (!raw) { mostraToast('⚠️ Nessuna partita salvata','#f59e0b'); return; }
+    const dati=JSON.parse(raw);
+    [1,2,3,4,5,6].forEach(n=>{
+      VOCI.forEach(v=>{ stato[n][v]=dati.stato[n][v]||0; aggiorna(n,v); });
+    });
+    scartiGlobali=dati.scartiGlobali||0;
+    document.getElementById('scarti-val').textContent=scartiGlobali;
+    mostraToast('📂 Caricato — '+(dati.timestamp||''),'#60a5fa');
+  } catch(e) { mostraToast('⚠️ Errore nel caricamento','#ef4444'); }
 }
 </script>
 </body>
